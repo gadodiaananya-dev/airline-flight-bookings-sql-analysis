@@ -1,0 +1,11 @@
+airplane_code,model,range_km,speed_kmh,seat_capacity
+32N,Airbus A320neo,6500,830,166
+339,Airbus A330-900neo,13300,870,281
+351,Airbus A350-1000,16700,913,325
+77W,Boeing 777-300ER,14600,905,404
+789,Boeing 787-9 Dreamliner,14000,913,257
+7M7,Boeing 737 MAX 7,7000,840,160
+CR7,Bombardier CRJ700,3100,829,70
+E70,Embraer E170,4000,800,78
+A21N,Airbus A321neo,7400,828,220
+B38M,Boeing 737 MAX 8,6570,839,178

@@ -1,0 +1,16 @@
+airport_code,airport_name,city,country,timezone
+DEL,Indira Gandhi International,Delhi,India,Asia/Kolkata
+BOM,Chhatrapati Shivaji Maharaj Intl,Mumbai,India,Asia/Kolkata
+BLR,Kempegowda International,Bengaluru,India,Asia/Kolkata
+MAA,Chennai International,Chennai,India,Asia/Kolkata
+HYD,Rajiv Gandhi International,Hyderabad,India,Asia/Kolkata
+CCU,Netaji Subhas Chandra Bose Intl,Kolkata,India,Asia/Kolkata
+JFK,John F. Kennedy International,New York,USA,America/New_York
+LAX,Los Angeles International,Los Angeles,USA,America/Los_Angeles
+LHR,Heathrow,London,UK,Europe/London
+CDG,Charles de Gaulle,Paris,France,Europe/Paris
+DXB,Dubai International,Dubai,UAE,Asia/Dubai
+SIN,Changi,Singapore,Singapore,Asia/Singapore
+NRT,Narita International,Tokyo,Japan,Asia/Tokyo
+SYD,Kingsford Smith,Sydney,Australia,Australia/Sydney
+FRA,Frankfurt Airport,Frankfurt,Germany,Europe/Berlin
