@@ -30,22 +30,6 @@ This analysis covers airport, aircraft, flight, booking, ticket and fare-segment
 
 ---
 
-## 🗂️ Database Tables
-
-| Table | Rows | Purpose |
-|---|---|---|
-| `airports` | 15 | Airport code, name, city, country, timezone |
-| `airplanes` | 10 | Aircraft model, range, speed, seat capacity |
-| `seats` | 2,522 | Seat map and fare class per aircraft |
-| `flights` | 900 | Scheduled and actual times, route, status |
-| `bookings` | 3,000 | Booking reference, date, total amount |
-| `tickets` | 4,805 | Passenger tickets per booking, outbound flag |
-| `segments` | 6,258 | Ticket-to-flight legs with fare class, price and boarding details |
-
-The `segments` table acts as the central transactional entity. It links `tickets` (and through them `bookings`) to `flights`, which connect to `airports` (departure and arrival) and `airplanes`, which own the `seats`. `seats` and `segments` use composite primary keys. The MySQL Workbench EER diagram is in `images/eer_diagram.png`.
-
----
-
 ## 🧹 Data Cleaning (Python)
 
 Each file was cleaned in its own Jupyter notebook using the same eight steps:
@@ -75,41 +59,6 @@ Each file was cleaned in its own Jupyter notebook using the same eight steps:
 
 ---
 
-## 🔍 Query Categories
-
-| Category | Queries | SQL Concept | Insight |
-|---|---|---|---|
-| Filtering & Basic Queries | Q1–Q3, Q14 | `WHERE`, `LIKE`, `ORDER BY`, `LIMIT` | 1,509 bookings above ₹50,000; top-10 fares; passengers starting with "A" |
-| Aggregations & Grouping | Q4–Q6, Q17 | `GROUP BY`, `HAVING` | ₹62.37M revenue; revenue per fare class; monthly booking amounts |
-| Functions & Transformation | Q7–Q10, Q16 | String/date functions, `CASE WHEN` | Price bands (Low/Medium/High); flights per month; check-in status |
-| Joins | Q11–Q13, Q15 | `JOIN` | Revenue per departure airport; top 5 routes by revenue |
-| Subqueries | Q18–Q20 | Nested `SELECT` | Bookings, aircraft and segments above average benchmarks |
-| CTE | Q21 | `WITH` | Airports generating over ₹1,000,000 in revenue |
-| Views | Q22 | `CREATE VIEW` | `high_value_bookings` (amount ₹50,000 and above) |
-| Window Functions | Q23–Q25 | `RANK()`, `LAG()`, `ROW_NUMBER()` | Fare ranking per flight; previous-leg price; flight sequence per aircraft |
-
----
-
-## 📈 Key Findings
-
-| Metric | Result |
-|---|---|
-| Total segment revenue | **₹62.37M** across 6,258 segments (average ₹9,966.61) |
-| Business class | **10.6% of segments, 39.7% of revenue** (about 6.5x the Economy fare) |
-| Top airport by revenue | **Bengaluru (BLR): ₹5.60M**; lowest is New York JFK at ₹2.82M |
-| Top route by revenue | **Frankfurt to Singapore (FRA to SIN): ₹778,367** |
-| Busiest departure airport | Paris CDG with 79 departures |
-| Busiest / quietest month | December (95 flights) / January (57 flights) |
-| Check-in rate | 3,083 of 6,258 segments (49.3%) have an assigned seat |
-
-| Fare class | Segments | Revenue | Share of revenue | Avg fare |
-|---|---|---|---|---|
-| Economy | 4,653 | ₹26.70M | 42.8% | ₹5,739 |
-| Business | 662 | ₹24.73M | 39.7% | ₹37,357 |
-| Comfort | 943 | ₹10.94M | 17.5% | ₹11,597 |
-
----
-
 ## ⚠️ Data Quality Findings
 
 A cross-table audit found inconsistencies in the source data. These were **reported, not overwritten**.
@@ -122,7 +71,16 @@ A cross-table audit found inconsistencies in the source data. These were **repor
 | Delayed / On Time flights with no actual times | 124 of 900 flights | Kept as recorded |
 | Same seat assigned twice on one flight | 59 of 3,083 seats | Kept; noted as a limitation |
 
-> **Note on Q24:** `LAG(price) OVER (PARTITION BY ticket_no)` has no `ORDER BY`, so "previous segment" is not guaranteed. Add an `ORDER BY` (for example by scheduled departure) for a repeatable result.
+---
+
+## Database Design (EER Diagram)
+
+![EER Diagram](images/eer_diagram.png)
+
+The diagram shows the relationships between the tables:
+- each booking can have one or more tickets
+- each ticket can have one or more flight segments
+- each segment belongs to one flight
 
 ---
 
