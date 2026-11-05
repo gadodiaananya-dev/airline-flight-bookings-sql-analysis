@@ -94,6 +94,13 @@ The diagram shows the relationships between the tables:
 | Query Environment | MySQL Workbench |
 | Concepts Used | Filtering, Aggregations, Group By/Having, String & Date Functions, CASE, Joins, Subqueries, CTEs, Views, Window Functions |
 
+## Power BI Dashboard
+
+![Dashboard overview](dashboard/overview.png)
+
+- Dashboard file: [airline_dashboard.pbix](dashboard/airline_dashboard.pbix) (open with Power BI Desktop)
+- PDF version: [airline_dashboard.pdf](dashboard/airline_dashboard.pdf)
+
 ## 📁 Repository Structure
 
 ```
